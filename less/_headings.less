@@ -4,8 +4,19 @@
 	> h1 {
 		.font-size(28);
 		margin-bottom: 5px;
-		@media (min-width: @tablet) {
+		@media (min-width: @grid-float-breakpoint) {
 			.font-size(36);
 		}
 	}
+}
+
+h3 {
+	.11px;
+	.normal;
+	@media (min-width: @grid-float-breakpoint) {
+		.13px;
+		.strong;
+	}
+	margin-top: 4px;
+	margin-bottom: 20px;
 }
