@@ -16,7 +16,9 @@ $array['기초'] = array(
     '유튜브' => array(
       array( '제목' => "풀업", '주소' => "aAggnpPyR6E" ),
       array( '제목' => "풀업 (L-Sit)", '주소' => "hHdD5Ksdnmk" ),
+      array( '제목' => "키핑 체스트투바 풀업", '주소' => "p9Stan68FYM" ),
       array( '제목' => "스트릭트 머슬업", '주소' => "rtF51pQB6Wc" ),
+      array( '제목' => "키핑 바 머슬업", '주소' => "OCg3UXgzftc" ),
       array( '제목' => "링 로우", '주소' => "xhlReCpAE9k" ),
     )
   ),

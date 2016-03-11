@@ -32,6 +32,7 @@ $array['짐내스틱'] = array(
       array( '제목' => "머슬업 프로그레션", '주소' => "ZNMKULvZ1dA" ),
       array( '제목' => "변형 머슬업", '주소' => "SqWNEmK9oek" ),
       array( '제목' => "바 머슬업 터득하기", '주소' => "astSQRh1-i0" ),
+      array( '제목' => "바 머슬업", '주소' => "iUAukdE0QQ4" ),
     )
   ),
 
