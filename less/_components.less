@@ -1,6 +1,25 @@
 @thumbnail-width-mobile:  140px;
 @thumbnail-width-desktop: 192px;
 
+// Well
+.well {
+	.no-border();
+	.no-shadow();
+}
+
+// 사이징 믹스인
+.item-width() {
+	width: @thumbnail-width-mobile;
+	@media (min-width: @grid-float-breakpoint) {
+		width: @thumbnail-width-desktop;
+	}
+}
+.item-thumbnail,
+.item-title,
+.item-description {
+	.item-width();
+}
+
 // 컨텐츠 정렬
 .site-main .list-inline {
 	li {
@@ -8,27 +27,43 @@
 	}
 }
 
-// 컨텐츠 이미지 크기
-img {
+// 항목: 이미지
+.item-thumbnail {
 	border: 1px solid @line;
-	width: @thumbnail-width-mobile;
 	height: 80px;
 	@media (min-width: @grid-float-breakpoint) {
-		width: @thumbnail-width-desktop;
 		height: 109px;
 	}
 }
 
-// Well
-.well {
-	.no-border();
-	.no-shadow();
+// 항목: 제목
+.item-title {
+	.11px;
+	.normal;
+	line-height: 1.5;
+	@media (min-width: @grid-float-breakpoint) {
+		.13px;
+		.strong;
+	}
+	margin-top: 4px;
+	margin-bottom: 0;
+}
+
+.item-title small,
+.item-description {
+	.text-muted;
+	.10px;
+	@media (min-width: @grid-float-breakpoint) {
+		.12px;
+	}
 }
 
 // 모바일에서 탭 제목 여백
 .nav-tabs > li > a {
+	.10px;
 	padding: 8px;
 	@media (min-width: @grid-float-breakpoint) {
+		.14px;
 		padding: 10px 15px;
 	}
 }
