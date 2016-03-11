@@ -8,7 +8,7 @@ function video_list( $array ) {
       $description = $y['설명'];
       $coach       = $y['코치'];
       $url         = "https://www.youtube.com/watch?v=" . $y['주소'];
-      $img         = "https://i.ytimg.com/vi_webp/" . $y['주소'] . "/mqdefault.webp"; ?>
+      $img         = "https://i.ytimg.com/vi/" . $y['주소'] . "/mqdefault.jpg"; ?>
       <li>
         <a href="<?php echo $url; ?>" target="_blank"><img class="item-thumbnail" src="<?php echo $img; ?>"></a>
         <h3 class="item-title"><a href="<?php echo $url; ?>" target="_blank"><?php echo $title; ?></a> <small><?php echo $year; ?></small></h3>
