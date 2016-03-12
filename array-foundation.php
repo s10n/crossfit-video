@@ -72,9 +72,10 @@ $array['기초'] = array(
       array( '제목' => "메디신볼 클린", '주소' => "-nk0GqeSTJs" ),
       array( '제목' => "스모 데드리프트 하이 풀", '주소' => "o6QniJ9FaGA" ),
       array( '제목' => "버그너 웜업", '주소' => "mWffzvDGeg4" ),
-      array( '제목' => "파워 클린", '주소' => "GVt4uQ0sDJE" ),
       array( '제목' => "클린", '주소' => "EKRiW9Yt3Ps" ),
+      array( '제목' => "파워 클린", '주소' => "GVt4uQ0sDJE" ),
       array( '제목' => "스내치", '주소' => "9xQp2sldyts" ),
+      array( '제목' => "파워 스내치", '주소' => "tuOiNeTvLJs" ),
     )
   ),
 
