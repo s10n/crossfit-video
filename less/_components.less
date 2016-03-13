@@ -16,18 +16,25 @@
 }
 .item-thumbnail,
 .item-title,
+.item-meta,
 .item-description {
 	.item-width();
 }
 
 // 컨텐츠 정렬
 .site-main .list-inline {
+	margin-bottom: 0;
 	li {
+		margin-bottom: 20px;
 		vertical-align: top;
+	}
+	hr {
+		margin-top: 1px;
+		margin-bottom: 4px;
 	}
 }
 
-// 항목: 이미지
+// 항목: 썸네일, 제목, 메타, 내용
 .item-thumbnail {
 	border: 1px solid @line;
 	height: 80px;
@@ -35,8 +42,6 @@
 		height: 109px;
 	}
 }
-
-// 항목: 제목
 .item-title {
 	.12px;
 	.normal;
@@ -48,9 +53,9 @@
 	margin-top: 4px;
 	margin-bottom: 0;
 }
-
-.item-title small,
+.item-meta,
 .item-description {
+	margin-bottom: 0;
 	.text-muted;
 	.11px;
 	@media (min-width: @grid-float-breakpoint) {

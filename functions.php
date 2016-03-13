@@ -11,8 +11,9 @@ function video_list( $array ) {
       $img         = "https://i.ytimg.com/vi/" . $y['주소'] . "/mqdefault.jpg"; ?>
       <li>
         <?php video_thumbnail( $img, $url ); ?>
-        <?php video_title( $title, $year, $url ); ?>
-        <?php video_description( $description, $coach ); ?>
+        <?php video_title( $title, $url ); ?>
+        <?php video_meta( $year, $coach ); ?>
+        <?php video_description( $description ); ?>
       </li><?php
     endforeach;
     echo '</ul>';
@@ -23,16 +24,24 @@ function video_thumbnail( $img, $url ) { ?>
   <a href="<?php echo $url; ?>" target="_blank"><img class="item-thumbnail" src="<?php echo $img; ?>"></a><?php
 }
 
-function video_title( $title, $year, $url ) { ?>
+function video_title( $title, $url ) { ?>
   <h3 class="item-title">
     <a href="<?php echo $url; ?>" target="_blank"><?php echo $title; ?></a>
-    <?php if ( ! empty( $year ) ) echo '<small>' . $year . '</small>'; ?>
   </h3><?php
 }
 
-function video_description( $description, $coach ) {
-  if ( ! empty( $description ) || ! empty( $coach ) ) echo '<p class="item-description">';
-  if ( ! empty( $description ) ) echo $description;
-  if ( ! empty( $coach ) ) echo ' &mdash; '.$coach;
-  if ( ! empty( $description ) || ! empty( $coach ) ) echo '</p>';
+function video_meta( $year, $coach ) { ?>
+  <p class="item-meta">
+    <?php if ( ! empty( $year ) )  echo $year; ?>
+    <?php if ( ! empty( $coach ) ) echo ' / ' . $coach; ?>
+  </p><?php
+}
+
+function video_description( $description ) {
+  if ( ! empty( $description ) ) : ?>
+    <hr>
+    <p class="item-description">
+     <?php echo $description; ?>
+    </p><?php
+  endif;
 }
