@@ -4,7 +4,6 @@
   <li role="presentation" class="active"><a href="#foundation" aria-controls="foundation" role="tab" data-toggle="tab">기초</a></li>
   <li role="presentation"><a href="#gymnastics" aria-controls="gymnastics" role="tab" data-toggle="tab">짐내스틱</a></li>
   <li role="presentation"><a href="#lifting" aria-controls="lifting" role="tab" data-toggle="tab">리프팅</a></li>
-  <li role="presentation"><a href="#olympic" aria-controls="olympic" role="tab" data-toggle="tab">역도</a></li>
   <li role="presentation"><a href="#wod" aria-controls="wod" role="tab" data-toggle="tab">WOD</a></li>
   <li role="presentation"><a href="#etc" aria-controls="etc" role="tab" data-toggle="tab">ETC</a></li>
 </ul>
@@ -13,7 +12,6 @@
   <div role="tabpanel" class="tab-pane active" id="foundation"><?php video_list( $array['기초']); ?></div>
   <div role="tabpanel" class="tab-pane" id="gymnastics"><?php video_list( $array['짐내스틱'] ); ?></div>
   <div role="tabpanel" class="tab-pane" id="lifting"><?php video_list( $array['리프팅'] ); ?></div>
-  <div role="tabpanel" class="tab-pane" id="olympic"><?php video_list( $array['역도'] ); ?></div>
   <div role="tabpanel" class="tab-pane" id="wod"><?php video_list( $array['WOD'] ); ?></div>
   <div role="tabpanel" class="tab-pane" id="etc"><?php video_list( $array['ETC'] ); ?></div>
 </div>
