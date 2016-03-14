@@ -42,6 +42,7 @@ $array['기초'] = array(
       array( '제목' => "백 스쿼트", '주소' => "ultWZbUMPL8" ),
       array( '제목' => "오버헤드 스쿼트", '주소' => "RD_vUnqwqqI" ),
       array( '제목' => "싱글덤벨 오버헤드 스쿼트", '주소' => "fa_yJa2XwXk" ),
+      array( '제목' => "피스톨", '주소' => "qDcniqddTeE" ),
       array( '제목' => "워킹 런지", '주소' => "L8fvypPrzzs" ),
       array( '제목' => "프론트 랙 런지", '주소' => "f3WLs_HutLw" ),
       array( '제목' => "오버헤드 런지", '주소' => "m6MczOv_Ayg" ),
