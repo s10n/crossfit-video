@@ -1,11 +1,20 @@
 <?php
-$array['WOD'] = array(
+$array['운동'] = array(
   // array(
   //   '동작' => '',
   //   '유튜브' => array(
   //     // array( '제목' => "", '주소' => "", '연도' => "", '설명' => "", '코치' => "" ),
   //   )
   // ),
+
+  array(
+    '동작' => '웜업',
+    '유튜브' => array(
+      // array( '제목' => "", '주소' => "", '연도' => "", '설명' => "", '코치' => "" ),
+      array( '제목' => "웜업", '주소' => "sI8h1xNUxcE", '연도' => 2013, '코치' => "Matt Chan" ),
+      array( '제목' => "햄스트링 활성화 드릴", '주소' => "JwE3Qjh04Xo", '연도' => 2016, '코치' => "PJ Newton " ),
+    )
+  ),
 
   array(
     '동작' => '크로스핏 오픈',
@@ -34,7 +43,7 @@ $array['WOD'] = array(
       array( '제목' => "2015년 10월 2일", '주소' => "MX7j-lJz1qs", '연도' => 2015, '설명' => "<strong>7-MIN. AMRAP</strong><br>2-4-6-8-10-12-14...<br>Deadlifts<br>Strict HSPU<br>Rest 5 minutes then<br><strong>7-MIN. AMRAP</strong><br>2-4-6-8-10-12-14...<br>Power cleans<br>Pistols", '코치' => "Rich Froning" ),
       array( '제목' => "Grace", '주소' => "w2jGUPVW5tc", '연도' => 2016, '설명' => "<strong>FOR TIME:</strong><br>30 Clean & Jerks", '코치' => "Brooke Wells" ),
       array( '제목' => "2016년 2월 8일", '주소' => "0zCzaAFaYm8", '연도' => 2016, '설명' => "<strong>3 ROUNDS</strong><br>Max reps at each station<br><strong>0:00-2:00</strong><br>Run 400 meters<br>Double-unders<br><strong>2:00-3:00</strong><br>Dumbbell Push Jerk<br><strong>3:00-4:00</strong><br>Pull-ups<br><strong>4:00-5:00</strong><br>Dumbbell Hang Squat Cleans<br>Rest 5 minutes between rounds", '코치' => "Dan Bailey" ),
-      array( '제목' => "2016년 2월 16일", '주소' => "lBoqyh55n54", '연도' => 2016, '설명' => "<strong>FOR TIME:</strong><br>90 double-unders<br>9 muscle-ups<br>9 squat clean thrusters<br>80 double-unders<br>8 muscle-ups<br>8 squat clean thrusters<br>70 double-unders<br>7 muscle-ups<br>7 squat clean thrusters", '코치' => "Julie Foucher" ),
+      array( '제목' => "2016년 2월 16일", '주소' => "lBoqyh55n54", '연도' => 2016, '설명' => "<strong>FOR TIME:</strong><br>90 Double-unders<br>9 Muscle-ups<br>9 Squat clean thrusters<br>80 Double-unders<br>8 Muscle-ups<br>8 Squat clean thrusters<br>70 Double-unders<br>7 Muscle-ups<br>7 Squat clean thrusters", '코치' => "Julie Foucher" ),
       array( '제목' => "7분 머슬업", '주소' => "VQyTWhnHsGw", '연도' => 2016 ),
       array( '제목' => "2016년 2월 23일", '주소' => "FY2jIlaFN44", '연도' => 2016, '설명' => "<strong>5 ROUNDS</strong><br>12 Dumbbell snatches<br>9 Bench presses<br>6 Bar muscle-ups", '코치' => "Ben Smith" ),
       array( '제목' => "Saturday Workout", '주소' => "ggcpYIpugcg", '연도' => 2014, '코치' => "CrossFit Poipu" ),
