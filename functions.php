@@ -8,14 +8,20 @@ function video_list( $array ) {
     echo '<h2>' . $a['동작'] . '</h2><ul class="list-inline">';
     foreach ($a['유튜브'] as $y) :
       $title       = $y['제목'];
+      $open        = $y['오픈'];
       $year        = $y['연도'];
       $description = $y['설명'];
       $coach       = $y['코치'];
-      $url         = "https://www.youtube.com/watch?v=" . $y['주소'];
-      $img         = "https://i.ytimg.com/vi/" . $y['주소'] . "/mqdefault.jpg"; ?>
+      if ( ! empty( $y['주소'] ) ) :
+        $url = "https://www.youtube.com/watch?v=" . $y['주소'];
+        $img = "https://i.ytimg.com/vi/" . $y['주소'] . "/mqdefault.jpg";
+      else :
+        $url = NULL;
+        $img = NULL;
+      endif; ?>
       <li>
         <?php video_thumbnail( $img, $url ); ?>
-        <?php video_title( $title, $url ); ?>
+        <?php video_title( $title, $open, $url ); ?>
         <?php video_meta( $year, $coach ); ?>
         <?php video_description( $description ); ?>
       </li><?php
@@ -24,13 +30,21 @@ function video_list( $array ) {
   endforeach;
 }
 
-function video_thumbnail( $img, $url ) { ?>
-  <a href="<?php echo $url; ?>" target="_blank"><img class="item-thumbnail" src="<?php echo $img; ?>"></a><?php
+function video_thumbnail( $img, $url ) {
+  if ( ! empty( $url ) ) :
+    $img = '<a href="' . $url . '" target="_blank"><img class="item-thumbnail" src="' . $img . '"></a>';
+  else :
+    $img = '<img class="item-thumbnail" src="images/thumbnail-placeholder.jpg">';
+  endif;
+  echo $img;
 }
 
-function video_title( $title, $url ) { ?>
+function video_title( $title, $open, $url ) { ?>
   <h3 class="item-title">
-    <a href="<?php echo $url; ?>" target="_blank"><?php echo $title; ?></a>
+    <?php
+    if ( ! empty( $url ) ) $title = '<a href="' . $url . ' target="_blank">' . $title . '</a>';
+    echo $title;
+    if ( $open ) echo ' <i class="fa fa-fw fa-trophy orange" data-toggle="tooltip" data-placement="right" title="크로스핏 오픈 출제"></i>'; ?>
   </h3><?php
 }
 
