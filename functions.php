@@ -1,4 +1,8 @@
 <?php
+function get_site_title() {
+  return '크로스핏 비디오 큐레이션';
+}
+
 function video_list( $array ) {
   foreach ($array as $a) :
     echo '<h2>' . $a['동작'] . '</h2><ul class="list-inline">';

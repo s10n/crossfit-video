@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-  <title>크로스핏 동작 비디오</title>
+  <title><?php echo get_site_title(); ?></title>
   <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 
   <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-touch-icon-57x57.png">
@@ -27,12 +27,19 @@
   <meta name="msapplication-TileImage" content="images/favicons/mstile-144x144.png">
   <meta name="msapplication-config" content="images/favicons/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
+
+  <meta name="description" content="크로스핏의 동작, 드릴, 프로그레션 등을 배울 수 있는 비디오 큐레이션 웹페이지입니다.">
+  <meta property="og:description" content="크로스핏의 동작, 드릴, 프로그레션 등을 배울 수 있는 비디오 큐레이션 웹페이지입니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="<?php echo get_site_title(); ?>">
+  <meta property="og:image" content="images/site-image.jpg">
+  <meta property="og:locale" content="ko-KR">
 </head>
 
 <body>
   <div class="container">
     <header class="site-header page-header">
-      <h1 class="page-title">크로스핏 동작 비디오</h1>
+      <h1 class="page-title"><?php echo get_site_title(); ?></h1>
     </header>
 
     <main class="site-main" role="main">
