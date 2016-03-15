@@ -1,4 +1,4 @@
-<p class="well well-sm text-muted">크로스핏의 기초 동작들과 각 동작의 프로그레션을 배울 수 있는 큐레이션 페이지입니다. 모든 비디오는 <a href="https://www.youtube.com/user/CrossFitHQ" target="_blank">CrossFit 공식 유튜브 채널</a>의 비디오로 넘어갑니다. (제작자: <a href="mailto:a@akaiv.com">심철환</a>)</p>
+<p class="page-description well well-sm text-muted">크로스핏의 기초 동작들과 각 동작의 프로그레션을 배울 수 있는 큐레이션 페이지입니다. 모든 비디오는 <a href="https://www.youtube.com/user/CrossFitHQ" target="_blank">CrossFit 공식 유튜브 채널</a>의 비디오로 넘어갑니다. (제작자: <a href="mailto:a@akaiv.com">심철환</a>)</p>
 
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active"><a href="#foundation" aria-controls="foundation" role="tab" data-toggle="tab">기초</a></li>

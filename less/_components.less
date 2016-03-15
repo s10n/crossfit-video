@@ -1,5 +1,9 @@
-@thumbnail-width-mobile:  140px;
-@thumbnail-width-desktop: 192px;
+@thumbnail-width-mobile:    140px;
+@thumbnail-width-iphone6plus:  180px;
+@thumbnail-width-desktop:   192px;
+@thumbnail-height-mobile:   80px;
+@thumbnail-height-iphone6plus: 102px;
+@thumbnail-height-desktop:  109px;
 
 // Well
 .well {
@@ -10,6 +14,9 @@
 // 사이징 믹스인
 .item-width() {
 	width: @thumbnail-width-mobile;
+	@media (min-width: 400px) {
+		width: @thumbnail-width-iphone6plus;
+	}
 	@media (min-width: @grid-float-breakpoint) {
 		width: @thumbnail-width-desktop;
 	}
@@ -37,9 +44,12 @@
 // 항목: 썸네일, 제목, 메타, 내용
 .item-thumbnail {
 	border: 1px solid @line;
-	height: 80px;
+	height: @thumbnail-height-mobile;
+	@media (min-width: 400px) {
+		height: @thumbnail-height-iphone6plus;
+	}
 	@media (min-width: @grid-float-breakpoint) {
-		height: 109px;
+		height: @thumbnail-height-desktop;
 	}
 }
 .item-title {
@@ -68,7 +78,15 @@
 	.12px;
 	padding: 8px;
 	@media (min-width: @grid-float-breakpoint) {
-		.14px;
+		.13px;
 		padding: 10px 15px;
+	}
+}
+
+// 페이지 설명
+.page-description {
+	.12px;
+	@media (min-width: @grid-float-breakpoint) {
+		.13px;
 	}
 }
