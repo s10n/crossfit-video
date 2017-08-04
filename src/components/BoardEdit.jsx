@@ -12,7 +12,8 @@ const propTypes = {
   board: PropTypes.object.isRequired,
   videos: PropTypes.array.isRequired,
   editBoard: PropTypes.func.isRequired,
-  deleteBoard: PropTypes.func.isRequired
+  deleteBoard: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 }
 
 class BoardEdit extends Component {
@@ -71,7 +72,7 @@ class BoardEdit extends Component {
   }
 
   render() {
-    const { board } = this.props
+    const { board, isLoggedIn } = this.props
     const { isEditing, title, error } = this.state
 
     return (
@@ -85,6 +86,7 @@ class BoardEdit extends Component {
           onKeyPress={event => event.key === 'Enter' && this.handlePressEnter()}
           value={!isEditing ? board.title : title}
           ref={input => (this.boardTitleInput = input)}
+          readOnly={!isLoggedIn}
         />
 
         <button className="BtnTrash btn-link" onClick={this.handleDeleteClick}>
@@ -102,8 +104,12 @@ class BoardEdit extends Component {
 
 BoardEdit.propTypes = propTypes
 
+const mapStateToProps = ({ auth }) => {
+  return { isLoggedIn: auth.authenticated }
+}
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ editBoard, deleteBoard }, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(BoardEdit)
+export default connect(mapStateToProps, mapDispatchToProps)(BoardEdit)

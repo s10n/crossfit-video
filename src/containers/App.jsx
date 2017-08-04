@@ -26,7 +26,8 @@ const propTypes = {
   boards: PropTypes.object.isRequired,
   videos: PropTypes.object.isRequired,
   fetchBoards: PropTypes.func.isRequired,
-  pushStorage: PropTypes.func.isRequired
+  pushStorage: PropTypes.func.isRequired,
+  authenticated: PropTypes.bool.isRequired
 }
 
 class App extends Component {
@@ -40,7 +41,7 @@ class App extends Component {
   }
 
   render() {
-    const { boards, videos } = this.props
+    const { boards, videos, authenticated } = this.props
     const trash = _.filter(videos, 'deleted').length
 
     return (
@@ -49,7 +50,7 @@ class App extends Component {
           <AppHeader />
 
           <section className="AppContainer">
-            <AppSidebar boards={boards} videos={videos} trash={trash} />
+            <AppSidebar boards={boards} videos={videos} trash={trash} isLoggedIn={authenticated} />
             <AppMain />
           </section>
         </div>
@@ -60,8 +61,8 @@ class App extends Component {
 
 App.propTypes = propTypes
 
-function mapStateToProps({ boards, videos }) {
-  return { boards, videos }
+function mapStateToProps({ boards, videos, auth }) {
+  return { boards, videos, authenticated: auth.authenticated }
 }
 
 function mapDispatchToProps(dispatch) {

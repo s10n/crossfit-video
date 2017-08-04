@@ -107,7 +107,7 @@ class ListEdit extends Component {
   }
 
   render() {
-    const { list, connectDragSource, isDragging } = this.props
+    const { list, connectDragSource, isDragging, isLoggedIn } = this.props
     const { isEditing, name, error } = this.state
 
     return !_.isEmpty(list)
@@ -122,6 +122,7 @@ class ListEdit extends Component {
               onKeyPress={event => event.key === 'Enter' && this.handlePressEnter()}
               value={!isEditing ? list.name : name}
               ref={input => (this.listNameInput = input)}
+              readOnly={!isLoggedIn}
             />
 
             <button className="BtnTrash btn-link" onClick={this.handleDeleteClick}>

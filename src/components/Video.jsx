@@ -56,7 +56,7 @@ const collect = (connect, monitor) => {
   }
 }
 
-const Video = ({ video, board, addingVideo, appStatus, connectDragSource, isDragging }) => {
+const Video = ({ video, board, addingVideo, connectDragSource, isDragging, isLoggedIn }) => {
   const { thumbnails, title, channelTitle, channelId } = video.data.snippet
 
   const Thumbnail = () => {
@@ -104,7 +104,7 @@ const Video = ({ video, board, addingVideo, appStatus, connectDragSource, isDrag
       <section className="VideoMeta">
         <ChannelTitle />
         <PublishedDate />
-        {!addingVideo && <VideoEdit video={video} board={board} />}
+        {isLoggedIn && !addingVideo && <VideoEdit video={video} board={board} />}
       </section>
     </article>
   )

@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { DropTarget } from 'react-dnd'
 import { ItemTypes, isIE } from '../config/constants'
 import Card from './Card'
@@ -14,7 +15,8 @@ const propTypes = {
   list: PropTypes.object,
   connectDropTarget: PropTypes.func.isRequired,
   isOver: PropTypes.bool.isRequired,
-  canDrop: PropTypes.bool.isRequired
+  canDrop: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 }
 
 const defaultProps = {
@@ -41,11 +43,14 @@ const collect = (connect, monitor) => {
   }
 }
 
-const List = ({ videos, board, list, connectDropTarget, isOver, canDrop }) => {
+const List = ({ videos, board, list, connectDropTarget, isOver, canDrop, isLoggedIn }) => {
   const videosFiltered = _.filter(videos, video => !video.deleted)
   const videosSorted = _.sortBy(videosFiltered, 'data.snippet.publishedAt').reverse()
   const header = <ListEdit board={board} list={list} videos={videos} />
-  const footer = !_.isEmpty(list) && !list.isSyncing ? <VideoAdd board={board} list={list} /> : null
+  const footer =
+    isLoggedIn && !_.isEmpty(list) && !list.isSyncing
+      ? <VideoAdd board={board} list={list} />
+      : null
 
   return connectDropTarget(
     <div style={{ height: '100%' }}>
@@ -64,4 +69,10 @@ const List = ({ videos, board, list, connectDropTarget, isOver, canDrop }) => {
 List.propTypes = propTypes
 List.defaultProps = defaultProps
 
-export default DropTarget(ItemTypes.VIDEO, listTarget, collect)(List)
+const mapStateToProps = ({ auth }) => {
+  return { isLoggedIn: auth.authenticated }
+}
+
+const enhance = _.flow(connect(mapStateToProps), DropTarget(ItemTypes.VIDEO, listTarget, collect))
+
+export default enhance(List)

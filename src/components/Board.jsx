@@ -12,10 +12,11 @@ import NotFound from './NotFound'
 const propTypes = {
   boards: PropTypes.object.isRequired,
   board: PropTypes.object.isRequired,
-  videos: PropTypes.array.isRequired
+  videos: PropTypes.array.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 }
 
-const Board = ({ boards, board, videos }) => {
+const Board = ({ boards, board, videos, isLoggedIn }) => {
   const videosInbox = _.filter(videos, video => !video.list && !video.deleted)
   const listsSorted = _.sortBy(board.lists, 'name')
 
@@ -60,7 +61,7 @@ const Board = ({ boards, board, videos }) => {
         {!_.isEmpty(listsSorted) &&
           listsSorted.map(list => <ListWrapper list={list} key={list.key} />)}
 
-        {!board.isSyncing && <ListAddContainer />}
+        {isLoggedIn && !board.isSyncing && <ListAddContainer />}
       </Page>
     : <NotFound />
 }
@@ -68,10 +69,10 @@ const Board = ({ boards, board, videos }) => {
 Board.propTypes = propTypes
 
 function mapStateToProps(state, ownProps) {
-  const { boards } = state
+  const { boards, auth } = state
   const board = _.find(boards, ['slug', ownProps.match.params.boardSlug]) || {}
   const videos = _.filter(state.videos, ['board', board.key])
-  return { boards, board, videos }
+  return { boards, board, videos, isLoggedIn: auth.authenticated }
 }
 
 export default connect(mapStateToProps)(Board)
