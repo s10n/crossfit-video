@@ -28,7 +28,7 @@ const defaultProps = {
 
 const videoSource = {
   canDrag(props) {
-    return !props.video.isSyncing && !props.appStatus
+    return props.isLoggedIn && !props.video.isSyncing && !props.appStatus
   },
 
   beginDrag(props) {
@@ -112,8 +112,8 @@ const Video = ({ video, board, addingVideo, appStatus, connectDragSource, isDrag
 Video.propTypes = propTypes
 Video.defaultProps = defaultProps
 
-function mapStateToProps({ app }) {
-  return { appStatus: app.status }
+function mapStateToProps({ app, auth }) {
+  return { appStatus: app.status, isLoggedIn: auth.authenticated }
 }
 
 function mapDispatchToProps(dispatch) {

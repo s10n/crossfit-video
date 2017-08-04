@@ -26,7 +26,7 @@ const defaultProps = {
 const listSource = {
   canDrag(props) {
     const { list, appStatus } = props
-    return list && !list.isSyncing && !appStatus
+    return props.isLoggedIn && list && !list.isSyncing && !appStatus
   },
 
   beginDrag(props) {
@@ -144,8 +144,8 @@ class ListEdit extends Component {
 ListEdit.propTypes = propTypes
 ListEdit.defaultProps = defaultProps
 
-function mapStateToProps({ app }) {
-  return { appStatus: app.status }
+function mapStateToProps({ app, auth }) {
+  return { appStatus: app.status, isLoggedIn: auth.authenticated }
 }
 
 function mapDispatchToProps(dispatch) {
