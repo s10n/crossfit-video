@@ -1,0 +1,21 @@
+{
+  "rules": {
+    "boards": {
+      ".read": "true",
+      ".write": "auth != null",
+
+      "$board": {
+        ".validate": "newData.hasChildren(['title', 'slug']) && newData.child('title').isString() && newData.child('slug').isString()",
+        "lists": {
+          "$list": {
+            ".validate": "newData.hasChildren(['name', 'slug']) && newData.child('name').isString() && newData.child('slug').isString()"
+          }
+        }
+      }
+    },
+    "videos": {
+      ".read": "true",
+      ".write": "auth != null"
+    }
+  }
+}
