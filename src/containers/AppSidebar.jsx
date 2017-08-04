@@ -12,7 +12,7 @@ const propTypes = {
   trash: PropTypes.number.isRequired
 }
 
-const AppSidebar = ({ boards, videos, trash }) => {
+const AppSidebar = ({ boards, videos, trash, isLoggedIn }) => {
   const boardsSorted = _.sortBy(boards, 'title')
 
   return (
@@ -32,7 +32,7 @@ const AppSidebar = ({ boards, videos, trash }) => {
             <NavItem trash count={trash} />
           </NavLink>}
 
-        <BoardAdd boards={boards} />
+        {isLoggedIn && <BoardAdd boards={boards} />}
       </div>
     </nav>
   )

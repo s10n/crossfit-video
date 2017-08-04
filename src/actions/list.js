@@ -3,7 +3,7 @@ import * as types from './types'
 
 export function addList(boardKey, list) {
   const user = auth().currentUser
-  const listKey = user ? db.ref(`/boards/${user.uid}/${boardKey}/lists`).push().key : Date.now()
+  const listKey = user ? db.ref(`/boards/${boardKey}/lists`).push().key : Date.now()
 
   return dispatch => {
     list = { ...list, key: listKey }
@@ -13,7 +13,7 @@ export function addList(boardKey, list) {
 
     if (user) {
       db
-        .ref(`/boards/${user.uid}/${boardKey}/lists/${listKey}`)
+        .ref(`/boards/${boardKey}/lists/${listKey}`)
         .set(list)
         .then(() => {
           const syncedList = { ...list, isSyncing: false }
@@ -38,7 +38,7 @@ export function editList(boardKey, oldList, newList) {
 
     if (user) {
       db
-        .ref(`/boards/${user.uid}/${boardKey}/lists/${listKey}`)
+        .ref(`/boards/${boardKey}/lists/${listKey}`)
         .update(newList)
         .then(() => {
           const syncedList = { ...newList, isSyncing: false }
@@ -68,11 +68,11 @@ export function deleteList(board, list, videos) {
     dispatch({ type: types.DELETE_LIST, boardKey, listKey })
 
     if (user) {
-      let updates = { [`/boards/${user.uid}/${boardKey}/lists/${listKey}`]: null }
+      let updates = { [`/boards/${boardKey}/lists/${listKey}`]: null }
 
       videos.forEach(video => {
-        updates[`/videos/${user.uid}/${video.key}/list`] = null
-        updates[`/videos/${user.uid}/${video.key}/deleted`] = true
+        updates[`/videos/${video.key}/list`] = null
+        updates[`/videos/${video.key}/deleted`] = true
       })
 
       dispatch({ type: types.APP_STATUS, status: `App is deleting ${list.name}` })

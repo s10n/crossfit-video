@@ -16,7 +16,8 @@ const propTypes = {
   connectDragSource: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,
   editList: PropTypes.func.isRequired,
-  deleteList: PropTypes.func.isRequired
+  deleteList: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 }
 
 const defaultProps = {
@@ -26,7 +27,7 @@ const defaultProps = {
 const listSource = {
   canDrag(props) {
     const { list, appStatus } = props
-    return list && !list.isSyncing && !appStatus
+    return props.isLoggedIn && list && !list.isSyncing && !appStatus
   },
 
   beginDrag(props) {
@@ -106,7 +107,7 @@ class ListEdit extends Component {
   }
 
   render() {
-    const { list, connectDragSource, isDragging } = this.props
+    const { list, connectDragSource, isDragging, isLoggedIn } = this.props
     const { isEditing, name, error } = this.state
 
     return !_.isEmpty(list)
@@ -121,6 +122,7 @@ class ListEdit extends Component {
               onKeyPress={event => event.key === 'Enter' && this.handlePressEnter()}
               value={!isEditing ? list.name : name}
               ref={input => (this.listNameInput = input)}
+              readOnly={!isLoggedIn}
             />
 
             <button className="BtnTrash btn-link" onClick={this.handleDeleteClick}>
@@ -144,8 +146,8 @@ class ListEdit extends Component {
 ListEdit.propTypes = propTypes
 ListEdit.defaultProps = defaultProps
 
-function mapStateToProps({ app }) {
-  return { appStatus: app.status }
+function mapStateToProps({ app, auth }) {
+  return { appStatus: app.status, isLoggedIn: auth.authenticated }
 }
 
 function mapDispatchToProps(dispatch) {

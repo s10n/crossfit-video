@@ -17,7 +17,8 @@ const propTypes = {
   appStatus: PropTypes.string,
   connectDragSource: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,
-  editVideo: PropTypes.func.isRequired
+  editVideo: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 }
 
 const defaultProps = {
@@ -28,7 +29,7 @@ const defaultProps = {
 
 const videoSource = {
   canDrag(props) {
-    return !props.video.isSyncing && !props.appStatus
+    return props.isLoggedIn && !props.video.isSyncing && !props.appStatus
   },
 
   beginDrag(props) {
@@ -55,7 +56,7 @@ const collect = (connect, monitor) => {
   }
 }
 
-const Video = ({ video, board, addingVideo, appStatus, connectDragSource, isDragging }) => {
+const Video = ({ video, board, addingVideo, connectDragSource, isDragging, isLoggedIn }) => {
   const { thumbnails, title, channelTitle, channelId } = video.data.snippet
 
   const Thumbnail = () => {
@@ -103,7 +104,7 @@ const Video = ({ video, board, addingVideo, appStatus, connectDragSource, isDrag
       <section className="VideoMeta">
         <ChannelTitle />
         <PublishedDate />
-        {!addingVideo && <VideoEdit video={video} board={board} />}
+        {isLoggedIn && !addingVideo && <VideoEdit video={video} board={board} />}
       </section>
     </article>
   )
@@ -112,8 +113,8 @@ const Video = ({ video, board, addingVideo, appStatus, connectDragSource, isDrag
 Video.propTypes = propTypes
 Video.defaultProps = defaultProps
 
-function mapStateToProps({ app }) {
-  return { appStatus: app.status }
+function mapStateToProps({ app, auth }) {
+  return { appStatus: app.status, isLoggedIn: auth.authenticated }
 }
 
 function mapDispatchToProps(dispatch) {
