@@ -3,25 +3,21 @@ import { auth, db } from '../config/constants'
 import * as types from './types'
 
 export function fetchVideos() {
-  const user = auth().currentUser
   const localVideos = localStorage.videos && JSON.parse(localStorage.videos)
 
   return dispatch => {
     dispatch({ type: types.FETCH_VIDEOS, videos: localVideos })
+    dispatch({ type: types.APP_STATUS, status: 'App is fetching videos' })
 
-    if (user) {
-      dispatch({ type: types.APP_STATUS, status: 'App is fetching videos' })
-
-      db
-        .ref(`/videos`)
-        .once('value', snap => {
-          dispatch({ type: types.FETCH_VIDEOS, videos: snap.val() })
-          dispatch({ type: types.APP_STATUS, status: null })
-        })
-        .catch(error => {
-          dispatch({ type: types.APP_STATUS, status: error.message })
-        })
-    }
+    db
+      .ref(`/videos`)
+      .once('value', snap => {
+        dispatch({ type: types.FETCH_VIDEOS, videos: snap.val() })
+        dispatch({ type: types.APP_STATUS, status: null })
+      })
+      .catch(error => {
+        dispatch({ type: types.APP_STATUS, status: error.message })
+      })
   }
 }
 

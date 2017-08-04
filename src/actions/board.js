@@ -3,25 +3,21 @@ import { auth, db } from '../config/constants'
 import * as types from './types'
 
 export function fetchBoards() {
-  const user = auth().currentUser
   const localBoards = localStorage.boards && JSON.parse(localStorage.boards)
 
   return dispatch => {
     dispatch({ type: types.FETCH_BOARDS, boards: localBoards })
+    dispatch({ type: types.APP_STATUS, status: 'App is fetching boards' })
 
-    if (user) {
-      dispatch({ type: types.APP_STATUS, status: 'App is fetching boards' })
-
-      db
-        .ref(`/boards`)
-        .once('value', snap => {
-          dispatch({ type: types.FETCH_BOARDS, boards: snap.val() })
-          dispatch({ type: types.APP_STATUS, status: null })
-        })
-        .catch(error => {
-          dispatch({ type: types.APP_STATUS, status: error.message })
-        })
-    }
+    db
+      .ref(`/boards`)
+      .once('value', snap => {
+        dispatch({ type: types.FETCH_BOARDS, boards: snap.val() })
+        dispatch({ type: types.APP_STATUS, status: null })
+      })
+      .catch(error => {
+        dispatch({ type: types.APP_STATUS, status: error.message })
+      })
   }
 }
 
