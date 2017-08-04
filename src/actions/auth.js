@@ -3,7 +3,6 @@ import { auth } from '../config/constants'
 import * as types from './types'
 import { fetchBoards } from './board'
 import { fetchVideos } from './video'
-import { emptyStorage } from './storage'
 
 export function signupUser({ email, password }) {
   return dispatch => {
@@ -41,7 +40,6 @@ export function signoutUser() {
       .signOut()
       .then(response => {
         dispatch({ type: types.UNAUTH_USER })
-        dispatch(emptyStorage())
       })
       .catch(error => {
         dispatch(authError(error.message))

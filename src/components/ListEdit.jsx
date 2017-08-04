@@ -16,7 +16,8 @@ const propTypes = {
   connectDragSource: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,
   editList: PropTypes.func.isRequired,
-  deleteList: PropTypes.func.isRequired
+  deleteList: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 }
 
 const defaultProps = {

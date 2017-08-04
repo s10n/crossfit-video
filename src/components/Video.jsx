@@ -17,7 +17,8 @@ const propTypes = {
   appStatus: PropTypes.string,
   connectDragSource: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,
-  editVideo: PropTypes.func.isRequired
+  editVideo: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 }
 
 const defaultProps = {
