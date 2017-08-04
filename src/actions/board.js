@@ -13,7 +13,7 @@ export function fetchBoards() {
       dispatch({ type: types.APP_STATUS, status: 'App is fetching boards' })
 
       db
-        .ref(`/boards/${user.uid}`)
+        .ref(`/boards`)
         .once('value', snap => {
           dispatch({ type: types.FETCH_BOARDS, boards: snap.val() })
           dispatch({ type: types.APP_STATUS, status: null })
@@ -27,7 +27,7 @@ export function fetchBoards() {
 
 export function addBoard(board) {
   const user = auth().currentUser
-  const boardKey = user ? db.ref(`/boards/${user.uid}`).push().key : Date.now()
+  const boardKey = user ? db.ref(`/boards`).push().key : Date.now()
 
   return dispatch => {
     board = { ...board, key: boardKey }
@@ -38,7 +38,7 @@ export function addBoard(board) {
 
     if (user) {
       db
-        .ref(`/boards/${user.uid}/${boardKey}`)
+        .ref(`/boards/${boardKey}`)
         .set(board)
         .then(() => {
           const syncedBoard = { ...board, isSyncing: false }
@@ -65,7 +65,7 @@ export function editBoard(oldBoard, newBoard) {
 
     if (user) {
       db
-        .ref(`/boards/${user.uid}`)
+        .ref(`/boards`)
         .child(boardKey)
         .update(newBoard)
         .then(() => {
@@ -98,14 +98,14 @@ export function deleteBoard(board, videos) {
     dispatch(push('/'))
 
     if (user) {
-      let updates = { [`/boards/${user.uid}/${boardKey}`]: null }
+      let updates = { [`/boards/${boardKey}`]: null }
 
       dispatch({ type: types.APP_STATUS, status: `App is deleting ${board.title}` })
 
       videos.forEach(video => {
-        updates[`/videos/${user.uid}/${video.key}/board`] = null
-        updates[`/videos/${user.uid}/${video.key}/list`] = null
-        updates[`/videos/${user.uid}/${video.key}/deleted`] = true
+        updates[`/videos/${video.key}/board`] = null
+        updates[`/videos/${video.key}/list`] = null
+        updates[`/videos/${video.key}/deleted`] = true
       })
 
       db

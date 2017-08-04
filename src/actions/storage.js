@@ -10,8 +10,8 @@ export function importStorage() {
 
     if (user) {
       const updates = {
-        [`/boards/${user.uid}`]: SAMPLE_BOARDS,
-        [`/videos/${user.uid}`]: SAMPLE_VIDEOS
+        [`/boards`]: SAMPLE_BOARDS,
+        [`/videos`]: SAMPLE_VIDEOS
       }
 
       dispatch({ type: types.APP_STATUS, status: 'App is importing sample' })
@@ -38,8 +38,8 @@ export function emptyStorage() {
 
     if (user) {
       const updates = {
-        [`/boards/${user.uid}`]: null,
-        [`/videos/${user.uid}`]: null
+        [`/boards`]: null,
+        [`/videos`]: null
       }
 
       dispatch({ type: types.APP_STATUS, status: 'App is emptying storage' })

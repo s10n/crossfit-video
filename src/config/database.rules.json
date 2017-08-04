@@ -1,7 +1,7 @@
 {
   "rules": {
     "boards": {
-      ".read": "auth != null",
+      ".read": "true",
       ".write": "auth != null",
 
       "$board": {
@@ -14,7 +14,7 @@
       }
     },
     "videos": {
-      ".read": "auth != null",
+      ".read": "true",
       ".write": "auth != null"
     }
   }

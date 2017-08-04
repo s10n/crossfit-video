@@ -13,7 +13,7 @@ export function fetchVideos() {
       dispatch({ type: types.APP_STATUS, status: 'App is fetching videos' })
 
       db
-        .ref(`/videos/${user.uid}`)
+        .ref(`/videos`)
         .once('value', snap => {
           dispatch({ type: types.FETCH_VIDEOS, videos: snap.val() })
           dispatch({ type: types.APP_STATUS, status: null })
@@ -27,7 +27,7 @@ export function fetchVideos() {
 
 export function addVideo(video) {
   const user = auth().currentUser
-  const videoKey = user ? db.ref(`/videos/${user.uid}`).push().key : Date.now()
+  const videoKey = user ? db.ref(`/videos`).push().key : Date.now()
 
   return dispatch => {
     video = { ...video, key: videoKey }
@@ -37,7 +37,7 @@ export function addVideo(video) {
 
     if (user) {
       db
-        .ref(`/videos/${user.uid}/${videoKey}`)
+        .ref(`/videos/${videoKey}`)
         .set(video)
         .then(() => {
           const syncedVideo = { ...video, isSyncing: false }
@@ -62,7 +62,7 @@ export function editVideo(oldVideo, newVideo) {
 
     if (user) {
       db
-        .ref(`/videos/${user.uid}/${videoKey}`)
+        .ref(`/videos/${videoKey}`)
         .update(newVideo)
         .then(() => {
           const syncedVideo = { ...newVideo, isSyncing: false }
@@ -88,7 +88,7 @@ export function deleteVideo(video) {
       dispatch({ type: types.APP_STATUS, status: `App is deleting video` })
 
       db
-        .ref(`/videos/${user.uid}/${videoKey}`)
+        .ref(`/videos/${videoKey}`)
         .remove()
         .then(() => {
           dispatch({ type: types.APP_STATUS, status: null })
@@ -114,7 +114,7 @@ export function emptyTrash(videos) {
       let updates = {}
 
       videos.forEach(video => {
-        updates[`/videos/${user.uid}/${video.key}`] = null
+        updates[`/videos/${video.key}`] = null
       })
 
       dispatch({ type: types.APP_STATUS, status: `App is deleting video` })
