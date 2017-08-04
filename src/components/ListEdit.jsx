@@ -125,9 +125,10 @@ class ListEdit extends Component {
               readOnly={!isLoggedIn}
             />
 
-            <button className="BtnTrash btn-link" onClick={this.handleDeleteClick}>
-              🗑
-            </button>
+            {isLoggedIn &&
+              <button className="BtnTrash btn-link" onClick={this.handleDeleteClick}>
+                🗑
+              </button>}
 
             {error &&
               <small className="HelpBlock">
