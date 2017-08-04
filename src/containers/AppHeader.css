@@ -1,0 +1,36 @@
+.AppHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid hsl(0, 0%, 90%);
+  overflow: hidden;
+}
+
+.AppTitle a,
+.AppNav a,
+.AppNav span {
+  display: block;
+  line-height: 1.875rem;
+  padding: .625rem 1.5rem;
+}
+
+.AppTitle a {
+  color: black;
+}
+
+.AppTitle small {
+  color: silver;
+  vertical-align: bottom;
+}
+
+.AppNav {
+  display: flex;
+}
+
+.AppNav a,
+.AppNav span {
+  color: hsl(0, 0%, 50%);
+}
+
+.AppNav a:hover {
+  color: black;
+}

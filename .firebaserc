@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "video-archives-production",
+    "dev": "video-archives-dev"
+  }
+}

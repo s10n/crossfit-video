@@ -1,0 +1,31 @@
+.Page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.PageHeader {
+  flex: none;
+  padding: .625rem 1.5rem;
+}
+
+.PageContent {
+  flex: 1;
+  position: relative;
+}
+
+.PageContentInner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding: 1.5rem;
+  padding-top: 0;
+}
+
+.Paragraph {
+  line-height: 1.5;
+}
