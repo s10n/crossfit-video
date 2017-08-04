@@ -1,14 +1,6 @@
-export const youtubeAPIKey = ''
+export const youtubeAPIKey = process.env.REACT_APP_ENV !== 'production' ? '' : ''
 
-export const firebaseConfig = {
-  apiKey: '',
-  authDomain: '',
-  databaseURL: '',
-  projectId: '',
-  storageBucket: '',
-  messagingSenderId: ''
-}
+export const firebaseConfig = process.env.REACT_APP_ENV !== 'production' ? {} : {}
 
-export const appConfig = {
-  signupAllowed: true
-}
+export const appConfig =
+  process.env.REACT_APP_ENV !== 'production' ? { signupAllowed: true } : { signupAllowed: false }
