@@ -52,7 +52,7 @@ const AppHeader = ({ status, authenticated }) => {
     <header className="AppHeader">
       <h1 className="AppTitle">
         <NavLink to="/">
-          Video Archives <small className="hidden-mobile">alpha</small>
+          CrossFit Video <span className="hidden-mobile">Curation</span>
         </NavLink>
       </h1>
 

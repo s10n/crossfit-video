@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "video-archives-production",
-    "dev": "video-archives-dev"
+    "default": "crossfit-video",
+    "dev": "crossfit-video-dev"
   }
 }

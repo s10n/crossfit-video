@@ -1,7 +1,7 @@
 {
-  "name": "video-archives",
+  "name": "crossfit-video",
   "private": true,
-  "homepage": "https://video.akaiv.link",
+  "homepage": "https://crossfit.nomad.works",
   "devDependencies": {
     "enzyme": "^2.9.1",
     "gh-pages": "^1.0.0",
