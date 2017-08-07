@@ -1,6 +1,4 @@
-export const youtubeAPIKey = process.env.REACT_APP_ENV !== 'production' ? '' : ''
+const dev = {}
+const production = {}
 
-export const firebaseConfig = process.env.REACT_APP_ENV !== 'production' ? {} : {}
-
-export const appConfig =
-  process.env.REACT_APP_ENV !== 'production' ? { signupAllowed: true } : { signupAllowed: false }
+export default (process.env.REACT_APP_ENV !== 'production' ? dev : production)
