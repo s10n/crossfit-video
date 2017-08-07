@@ -1,11 +1,11 @@
 import { push } from 'react-router-redux'
-import { auth, db } from '../config/constants'
-import * as types from './types'
+import { db } from '../constants/api'
+import types from '../constants/types'
 
 export function fetchBoards() {
   const localBoards = localStorage.boards && JSON.parse(localStorage.boards)
 
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: types.FETCH_BOARDS, boards: localBoards })
     dispatch({ type: types.APP_STATUS, status: 'App is fetching boards' })
 
@@ -22,17 +22,17 @@ export function fetchBoards() {
 }
 
 export function addBoard(board) {
-  const user = auth().currentUser
-  const boardKey = user ? db.ref(`/boards`).push().key : Date.now()
-
-  return dispatch => {
+  return (dispatch, getState) => {
+    const { authenticated } = getState().auth
+    const auth = authenticated
+    const boardKey = auth ? db.ref(`/boards`).push().key : Date.now()
     board = { ...board, key: boardKey }
     const syncingBoard = { ...board, isSyncing: true }
 
-    dispatch({ type: types.ADD_BOARD, boardKey, board: !user ? board : syncingBoard })
+    dispatch({ type: types.ADD_BOARD, boardKey, board: !auth ? board : syncingBoard })
     dispatch(push(board.slug))
 
-    if (user) {
+    if (auth) {
       db
         .ref(`/boards/${boardKey}`)
         .set(board)
@@ -50,16 +50,16 @@ export function addBoard(board) {
 }
 
 export function editBoard(oldBoard, newBoard) {
-  const user = auth().currentUser
-  const boardKey = oldBoard.key
-
-  return dispatch => {
+  return (dispatch, getState) => {
+    const { authenticated } = getState().auth
+    const auth = authenticated
+    const boardKey = oldBoard.key
     const syncingBoard = { ...newBoard, isSyncing: true }
 
-    dispatch({ type: types.EDIT_BOARD, boardKey, newBoard: !user ? newBoard : syncingBoard })
+    dispatch({ type: types.EDIT_BOARD, boardKey, newBoard: !auth ? newBoard : syncingBoard })
     dispatch(push(newBoard.slug))
 
-    if (user) {
+    if (auth) {
       db
         .ref(`/boards`)
         .child(boardKey)
@@ -79,10 +79,10 @@ export function editBoard(oldBoard, newBoard) {
 }
 
 export function deleteBoard(board, videos) {
-  const user = auth().currentUser
-  const boardKey = board.key
-
-  return dispatch => {
+  return (dispatch, getState) => {
+    const { authenticated } = getState().auth
+    const auth = authenticated
+    const boardKey = board.key
     const deletedVideo = { board: null, list: null, deleted: true }
 
     videos.forEach(video => {
@@ -93,7 +93,7 @@ export function deleteBoard(board, videos) {
     dispatch({ type: types.DELETE_BOARD, boardKey })
     dispatch(push('/'))
 
-    if (user) {
+    if (auth) {
       let updates = { [`/boards/${boardKey}`]: null }
 
       dispatch({ type: types.APP_STATUS, status: `App is deleting ${board.title}` })

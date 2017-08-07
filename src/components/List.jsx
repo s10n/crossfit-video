@@ -2,17 +2,26 @@ import _ from 'lodash'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { DropTarget } from 'react-dnd'
-import { ItemTypes, isIE } from '../config/constants'
+import { editList, deleteList } from '../actions/list'
+import { addVideo } from '../actions/video'
+import { ItemTypes } from '../constants/app'
+import { isIE } from '../constants/utils'
 import Card from './Card'
 import ListEdit from './ListEdit'
 import Video from './Video'
 import VideoAdd from './VideoAdd'
 
 const propTypes = {
+  app: PropTypes.object.isRequired,
   videos: PropTypes.array.isRequired,
+  boards: PropTypes.object.isRequired,
   board: PropTypes.object.isRequired,
   list: PropTypes.object,
+  editList: PropTypes.func.isRequired,
+  deleteList: PropTypes.func.isRequired,
+  addVideo: PropTypes.func.isRequired,
   connectDropTarget: PropTypes.func.isRequired,
   isOver: PropTypes.bool.isRequired,
   canDrop: PropTypes.bool.isRequired,
@@ -43,14 +52,26 @@ const collect = (connect, monitor) => {
   }
 }
 
-const List = ({ videos, board, list, connectDropTarget, isOver, canDrop, isLoggedIn }) => {
+const List = ({ app, videos, boards, board, list, editList, deleteList, addVideo, ...props }) => {
+  const { connectDropTarget, isOver, canDrop, isLoggedIn } = props
   const videosFiltered = _.filter(videos, video => !video.deleted)
   const videosSorted = _.sortBy(videosFiltered, 'data.snippet.publishedAt').reverse()
-  const header = <ListEdit board={board} list={list} videos={videos} />
+
+  const propsListEdit = {
+    board,
+    list,
+    videos,
+    appStatus: app.status,
+    onEdit: editList,
+    onDelete: deleteList,
+    isLoggedIn
+  }
+
+  const propsVideoAdd = { board, list, boards, onAdd: addVideo, isLoggedIn }
+
+  const header = <ListEdit {...propsListEdit} />
   const footer =
-    isLoggedIn && !_.isEmpty(list) && !list.isSyncing
-      ? <VideoAdd board={board} list={list} />
-      : null
+    isLoggedIn && !_.isEmpty(list) && !list.isSyncing ? <VideoAdd {...propsVideoAdd} /> : null
 
   return connectDropTarget(
     <div style={{ height: '100%' }}>
@@ -69,10 +90,17 @@ const List = ({ videos, board, list, connectDropTarget, isOver, canDrop, isLogge
 List.propTypes = propTypes
 List.defaultProps = defaultProps
 
-const mapStateToProps = ({ auth }) => {
-  return { isLoggedIn: auth.authenticated }
+const mapStateToProps = ({ auth, app, boards }) => {
+  return { app, boards, isLoggedIn: auth.authenticated }
 }
 
-const enhance = _.flow(connect(mapStateToProps), DropTarget(ItemTypes.VIDEO, listTarget, collect))
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ editList, deleteList, addVideo }, dispatch)
+}
+
+const enhance = _.flow(
+  DropTarget(ItemTypes.VIDEO, listTarget, collect),
+  connect(mapStateToProps, mapDispatchToProps)
+)
 
 export default enhance(List)

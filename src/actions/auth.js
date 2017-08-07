@@ -1,13 +1,13 @@
 import { push } from 'react-router-redux'
-import { auth } from '../config/constants'
-import * as types from './types'
+import { auth } from '../constants/api'
+import types from '../constants/types'
 
 export function signupUser({ email, password }) {
   return dispatch => {
     auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(response => {
-        dispatch({ type: types.AUTH_USER })
+      .then(user => {
+        dispatch({ type: types.AUTH_USER, user })
         dispatch(push('/'))
       })
       .catch(error => {
@@ -20,8 +20,8 @@ export function signinUser({ email, password }) {
   return dispatch => {
     auth()
       .signInWithEmailAndPassword(email, password)
-      .then(response => {
-        dispatch({ type: types.AUTH_USER })
+      .then(user => {
+        dispatch({ type: types.AUTH_USER, user })
         dispatch(push('/'))
       })
       .catch(error => {
@@ -34,7 +34,7 @@ export function signoutUser() {
   return dispatch => {
     auth()
       .signOut()
-      .then(response => {
+      .then(user => {
         dispatch({ type: types.UNAUTH_USER })
       })
       .catch(error => {

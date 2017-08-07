@@ -1,14 +1,13 @@
-import { auth, db } from '../config/constants'
-import * as types from './types'
-import { SAMPLE_BOARDS, SAMPLE_VIDEOS } from '../config/sample'
+import { db } from '../constants/api'
+import types from '../constants/types'
+import { SAMPLE_BOARDS, SAMPLE_VIDEOS } from '../constants/sample'
 
 export function importStorage() {
-  const user = auth().currentUser
-
-  return dispatch => {
+  return (dispatch, getState) => {
+    const { authenticated, user } = getState().auth
     dispatch({ type: types.IMPORT_STORAGE, boards: SAMPLE_BOARDS, videos: SAMPLE_VIDEOS })
 
-    if (user) {
+    if (authenticated) {
       const updates = {
         [`/boards`]: SAMPLE_BOARDS,
         [`/videos`]: SAMPLE_VIDEOS
@@ -31,12 +30,11 @@ export function importStorage() {
 }
 
 export function emptyStorage() {
-  const user = auth().currentUser
-
-  return dispatch => {
+  return (dispatch, getState) => {
+    const { authenticated, user } = getState().auth
     dispatch({ type: types.EMPTY_STORAGE })
 
-    if (user) {
+    if (authenticated) {
       const updates = {
         [`/boards`]: null,
         [`/videos`]: null
@@ -55,16 +53,4 @@ export function emptyStorage() {
         })
     }
   }
-}
-
-export function pushStorage(props, prevProps) {
-  if (JSON.stringify(prevProps.boards) !== JSON.stringify(props.boards)) {
-    localStorage.boards = JSON.stringify(props.boards)
-  }
-
-  if (JSON.stringify(prevProps.videos) !== JSON.stringify(props.videos)) {
-    localStorage.videos = JSON.stringify(props.videos)
-  }
-
-  return { type: types.PUSH_STORAGE }
 }

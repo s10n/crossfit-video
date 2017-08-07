@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { DragSource } from 'react-dnd'
-import { editVideo } from '../actions/video'
-import { ItemTypes } from '../config/constants'
+import { editVideo, deleteVideo } from '../actions/video'
+import { ItemTypes } from '../constants/app'
 import './Video.css'
 import VideoEdit from './VideoEdit'
 
@@ -15,9 +15,11 @@ const propTypes = {
   board: PropTypes.object,
   addingVideo: PropTypes.bool,
   appStatus: PropTypes.string,
+  boards: PropTypes.object.isRequired,
+  editVideo: PropTypes.func.isRequired,
+  deleteVideo: PropTypes.func.isRequired,
   connectDragSource: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,
-  editVideo: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
 
@@ -56,55 +58,52 @@ const collect = (connect, monitor) => {
   }
 }
 
-const Video = ({ video, board, addingVideo, connectDragSource, isDragging, isLoggedIn }) => {
+const Video = ({ video, board, addingVideo, appStatus, boards, ...props }) => {
+  const { editVideo, deleteVideo } = props
+  const { connectDragSource, isDragging, isLoggedIn } = props
   const { thumbnails, title, channelTitle, channelId } = video.data.snippet
+  const backgroundImage = `url(${thumbnails.high.url})`
+  const url = `https://www.youtube.com/watch?v=${video.data.id}`
+  const channelUrl = `https://www.youtube.com/channel/${channelId}`
+  const publishedAt = new Date(video.data.snippet.publishedAt)
+  const dateTime = moment(publishedAt).format('YYYY-MM-DD')
+  const year = moment(publishedAt).format('YYYY')
 
-  const Thumbnail = () => {
-    const backgroundImage = `url(${thumbnails.high.url})`
-    return connectDragSource(<section className="VideoThumbnail" style={{ backgroundImage }} />)
-  }
+  const thumbnail = connectDragSource(
+    <section className="VideoThumbnail" style={{ backgroundImage }} />
+  )
 
-  const Title = () => {
-    const url = `https://www.youtube.com/watch?v=${video.data.id}`
-
-    return (
-      <h3 className="VideoTitle">
-        <a href={url} target="_blank" rel="noopener noreferrer">
-          {title}
-        </a>
-      </h3>
-    )
-  }
-
-  const ChannelTitle = () => {
-    const channelUrl = `https://www.youtube.com/channel/${channelId}`
-    return (
-      <a href={channelUrl} target="_blank" rel="noopener noreferrer">
-        {channelTitle}
+  const videoTitle = (
+    <h3 className="VideoTitle">
+      <a href={url} target="_blank" rel="noopener noreferrer">
+        {title}
       </a>
-    )
-  }
+    </h3>
+  )
 
-  const PublishedDate = () => {
-    const publishedAt = new Date(video.data.snippet.publishedAt)
-    const dateTime = moment(publishedAt).format('YYYY-MM-DD')
-    const year = moment(publishedAt).format('YYYY')
-    return (
-      <time dateTime={dateTime} title={dateTime}>
-        {year}
-      </time>
-    )
-  }
+  const channel = (
+    <a href={channelUrl} target="_blank" rel="noopener noreferrer">
+      {channelTitle}
+    </a>
+  )
+
+  const publishedDate = (
+    <time dateTime={dateTime} title={dateTime}>
+      {year}
+    </time>
+  )
+
+  const propsVideoEdit = { video, board, boards, onEdit: editVideo, onDelete: deleteVideo }
 
   return (
     <article className="Video" style={{ opacity: isDragging && 0.5 }}>
-      <Thumbnail />
-      <Title />
+      {thumbnail}
+      {videoTitle}
 
       <section className="VideoMeta">
-        <ChannelTitle />
-        <PublishedDate />
-        {isLoggedIn && !addingVideo && <VideoEdit video={video} board={board} />}
+        {channel}
+        {publishedDate}
+        {isLoggedIn && !addingVideo && <VideoEdit {...propsVideoEdit} />}
       </section>
     </article>
   )
@@ -113,12 +112,12 @@ const Video = ({ video, board, addingVideo, connectDragSource, isDragging, isLog
 Video.propTypes = propTypes
 Video.defaultProps = defaultProps
 
-function mapStateToProps({ app, auth }) {
-  return { appStatus: app.status, isLoggedIn: auth.authenticated }
+const mapStateToProps = ({ auth, app, boards }) => {
+  return { appStatus: app.status, boards, isLoggedIn: auth.authenticated }
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ editVideo }, dispatch)
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ editVideo, deleteVideo }, dispatch)
 }
 
 const enhance = _.flow(
