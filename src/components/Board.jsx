@@ -60,7 +60,7 @@ const Board = ({ boards, board, videos, editBoard, deleteBoard, addList, isLogge
   return !_.isEmpty(board)
     ? <Page page="Board" header={<BoardEdit {...propsBoardEdit} />}>
         {!_.isEmpty(videosInbox) && listInbox}
-        {!_.isEmpty(listsSorted) && listsSorted.map(list => listWrapper(list))}
+        {!_.isEmpty(listsSorted) && listsSorted.map(listWrapper)}
         {isLoggedIn && !board.isSyncing && listAddContainer}
       </Page>
     : <NotFound />
@@ -75,8 +75,7 @@ const mapStateToProps = (state, ownProps) => {
   return { boards, board, videos, isLoggedIn: auth.authenticated }
 }
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ editBoard, deleteBoard, addList }, dispatch)
-}
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ editBoard, deleteBoard, addList }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board)
